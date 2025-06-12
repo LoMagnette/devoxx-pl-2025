@@ -35,8 +35,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
   ],
   template: `
     <div class="tools">
-      <button mat-icon-button (click)="refreshSheep()" matTooltip="Reload sheep">
-        <mat-icon>refresh</mat-icon>
+      {{this.sheeps.status()}}
+      <button mat-icon-button (click)="refreshSheep()" matTooltip="Reload sheep"><mat-icon>refresh</mat-icon>
       </button>
     </div>
     <div class="search-bar">
@@ -69,9 +69,9 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 export class Sheeps {
 
   sheepService = inject<SheepService>(SheepService);
-  sheeps = toSignal(this.sheepService.getSheep(), {initialValue:[]});
+  sheeps = this.sheepService.getSheep();
   filteredSheeps = linkedSignal( () =>
-    this.sheeps().filter( s => s.name.toUpperCase().includes(this.searchText().toUpperCase()))
+    this.sheeps.value().filter( s => s.name.toUpperCase().includes(this.searchText().toUpperCase()))
   )
   dialog = inject(MatDialog);
   searchText = signal('');
@@ -88,7 +88,7 @@ export class Sheeps {
 
 
   refreshSheep() {
-
+    this.sheeps.reload();
   }
 
   addASheep() {
