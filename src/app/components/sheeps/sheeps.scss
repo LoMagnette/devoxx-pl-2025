@@ -1,0 +1,29 @@
+.content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+  align-items: center;
+}
+
+.sheep-grid {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 24px;
+  justify-content: center;
+  gap: 1rem;
+}
+.tools{
+  float: right;
+  padding: 1rem;
+}
+
+.add{
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+}
+.icon{
+  float: right;
+}

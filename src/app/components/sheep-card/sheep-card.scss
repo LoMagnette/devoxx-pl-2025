@@ -1,0 +1,39 @@
+.example-card {
+  max-width: 400px;
+}
+.mat-mdc-card-title{
+  padding: 10px
+}
+
+.mdc-card{
+  &:hover{
+    transform: scale(1.02);
+    box-shadow: 0 8px 16px rgba(51, 51, 127, 0.3);
+    transition: transform 330ms ease-in-out;
+
+  }
+}
+mat-card-actions {
+  display: flex;
+  justify-content: space-between;
+
+  button{
+    color: #FF4C4C;
+    &:hover {
+      transform: scale(1.1);
+      transition: transform 330ms ease-in-out;
+      color: #B23535;
+    }
+  }
+  .icon{
+    color: #6666FF;
+    border-radius: 25px;
+
+    &:hover {
+      transform: scale(1.4);
+      box-shadow: 0 8px 16px rgba(51, 51, 127, 0.3);
+      transition: transform 330ms ease-in-out;
+      color: #4747B2;
+    }
+  }
+}
