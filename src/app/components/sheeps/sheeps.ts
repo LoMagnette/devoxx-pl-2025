@@ -13,6 +13,7 @@ import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCard, MatCardContent} from '@angular/material/card';
 import {toSignal} from '@angular/core/rxjs-interop';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sheeps',
@@ -47,7 +48,7 @@ import {toSignal} from '@angular/core/rxjs-interop';
     <div class="content">
       <div class="sheep-grid">
         @for(sheep of filteredSheeps(); track sheep.id){
-          <app-sheep-card [sheep]="sheep"/>
+          <app-sheep-card [sheep]="sheep" (likesChange)="onLikeChanged($event)"/>
         } @empty {
           <mat-card>
             <mat-card-content>
@@ -74,6 +75,7 @@ export class Sheeps {
   )
   dialog = inject(MatDialog);
   searchText = signal('');
+  snackBar = inject(MatSnackBar);
 
 
   refreshSheep() {
@@ -91,5 +93,11 @@ export class Sheeps {
         //TODO
       }
     });
+  }
+
+  onLikeChanged(likes: number) {
+    if(likes > 0) {
+      this.snackBar.open(`A sheep has been liked ${likes} times`);
+    }
   }
 }
