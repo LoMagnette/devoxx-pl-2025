@@ -71,7 +71,7 @@ export class Sheeps {
   sheepService = inject<SheepService>(SheepService);
   sheeps = this.sheepService.getSheep();
   filteredSheeps = linkedSignal( () =>
-    this.sheeps.value().filter( s => s.name.toUpperCase().includes(this.searchText().toUpperCase()))
+    this.sheeps.value()?.filter( s => s.name.toUpperCase().includes(this.searchText().toUpperCase()))
   )
   dialog = inject(MatDialog);
   searchText = signal('');
@@ -99,7 +99,7 @@ export class Sheeps {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.filteredSheeps.update( sheeps => [...sheeps, result]);
+        this.filteredSheeps.update( sheeps => [...sheeps || [], result]);
       }
     });
   }
