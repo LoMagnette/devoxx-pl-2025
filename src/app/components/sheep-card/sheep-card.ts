@@ -37,25 +37,30 @@ import {NgIf} from '@angular/common';
         </p>
       </mat-card-content>
       <mat-card-actions>
-          <button mat-button color="accent" (click)="likeSheep()">
-            <mat-icon>
-              favorite
-            </mat-icon>
-            LIKE ({{ sheep.likes }})
-          </button>
-          <div>
-            <mat-icon class="icon">
-             @if(sheep.category === 'military'){
-              military_tech
-            } @else if (sheep.category === 'science'){
-              science
-            } @else if (sheep.category === 'movie'){
-              movie
-            }@else{
-              not_listed_location
+        <button mat-button color="accent" (click)="likeSheep()">
+          <mat-icon>
+            favorite
+          </mat-icon>
+          LIKE ({{ sheep.likes }})
+        </button>
+        <div>
+          <mat-icon class="icon">
+            @switch (sheep.category) {
+              @case ('military') {
+                military_tech
+              }
+              @case ('science') {
+                science
+              }
+              @case ('movie') {
+                movie
+              }
+              @default {
+                not_listed_location
+              }
             }
-            </mat-icon>
-          </div>
+          </mat-icon>
+        </div>
       </mat-card-actions>
     </mat-card>
 
