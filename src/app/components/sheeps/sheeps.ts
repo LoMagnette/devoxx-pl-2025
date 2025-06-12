@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component, computed, inject, signal} from '@angular/core';
 import {SheepCard} from '../sheep-card/sheep-card';
 import {Observable} from 'rxjs';
 import {Sheep} from '../../models/sheep';
@@ -12,6 +12,7 @@ import {SheepDialog} from '../sheep-dialog/sheep-dialog';
 import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatCard, MatCardContent} from '@angular/material/card';
+import {toSignal} from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-sheeps',
@@ -45,7 +46,7 @@ import {MatCard, MatCardContent} from '@angular/material/card';
     </div>
     <div class="content">
       <div class="sheep-grid">
-        @for(sheep of sheep$|async; track sheep.id){
+        @for(sheep of filteredSheeps(); track sheep.id){
           <app-sheep-card [sheep]="sheep"/>
         } @empty {
           <mat-card>
@@ -67,13 +68,16 @@ import {MatCard, MatCardContent} from '@angular/material/card';
 export class Sheeps {
 
   sheepService = inject<SheepService>(SheepService);
-  sheep$: Observable<Sheep[]> = this.sheepService.getSheep();
+  sheeps = toSignal(this.sheepService.getSheep(), {initialValue:[]});
+  filteredSheeps = computed( () =>
+    this.sheeps().filter( s => s.name.toUpperCase().includes(this.searchText().toUpperCase()))
+  )
   dialog = inject(MatDialog);
-  searchText: string = '';
+  searchText = signal('');
 
 
   refreshSheep() {
-    this.sheep$ = this.sheepService.getSheep();
+
   }
 
   addASheep() {
