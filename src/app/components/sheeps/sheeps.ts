@@ -9,6 +9,8 @@ import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatDialog} from '@angular/material/dialog';
 import {SheepDialog} from '../sheep-dialog/sheep-dialog';
+import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 @Component({
   selector: 'app-sheeps',
@@ -20,12 +22,23 @@ import {SheepDialog} from '../sheep-dialog/sheep-dialog';
     MatIcon,
     MatTooltip,
     MatFabButton,
+    MatFormField,
+    MatInput,
+    MatLabel,
+    ReactiveFormsModule,
+    FormsModule,
   ],
   template: `
     <div class="tools">
       <button mat-icon-button (click)="refreshSheep()" matTooltip="Reload sheep">
         <mat-icon>refresh</mat-icon>
       </button>
+    </div>
+    <div class="search-bar">
+      <mat-form-field appearance="outline">
+        <mat-label>Filter</mat-label>
+        <input type="text" matInput ="filter" placeholder="Enter the name of the sheep you'r looking for" [(ngModel)]="searchText"/>
+      </mat-form-field>
     </div>
     <div class="content">
       <div class="sheep-grid">
@@ -47,6 +60,7 @@ export class Sheeps {
   sheepService = inject<SheepService>(SheepService);
   sheep$: Observable<Sheep[]> = this.sheepService.getSheep();
   dialog = inject(MatDialog);
+  searchText: string = '';
 
 
   refreshSheep() {

@@ -1,10 +1,24 @@
 .content {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 24px;
+  padding: 10px;
   align-items: center;
+
 }
 
+.search-bar{
+  max-width: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 10px;
+
+  .mat-mdc-form-field {
+    width: 60%;
+    padding-top: 10px;
+  }
+}
 .sheep-grid {
   display: flex;
   flex-wrap: wrap;
@@ -15,8 +29,10 @@
   gap: 1rem;
 }
 .tools{
-  float: right;
-  padding: 1rem;
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+
 }
 
 .add{
