@@ -1,4 +1,4 @@
-import {Component, effect, EventEmitter, inject, input, Input, output, signal} from '@angular/core';
+import {Component, effect, EventEmitter, inject, input, Input, model, output, signal} from '@angular/core';
 import {
   MatCard,
   MatCardActions,
@@ -74,8 +74,7 @@ export class SheepCard {
 
   snackbar = inject(MatSnackBar);
 
-  likes = signal<number>(0);
-  likesChange = output<number>();
+  likes = model<number>(0);
 
   constructor() {
   }
@@ -83,6 +82,5 @@ export class SheepCard {
 
   likeSheep() {
     this.likes.update(v => v+1);
-    this.likesChange.emit(this.likes());
   }
 }

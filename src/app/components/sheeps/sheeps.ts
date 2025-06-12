@@ -1,4 +1,4 @@
-import {Component, computed, inject, signal} from '@angular/core';
+import {Component, computed, effect, inject, signal} from '@angular/core';
 import {SheepCard} from '../sheep-card/sheep-card';
 import {Observable} from 'rxjs';
 import {Sheep} from '../../models/sheep';
@@ -48,7 +48,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
     <div class="content">
       <div class="sheep-grid">
         @for(sheep of filteredSheeps(); track sheep.id){
-          <app-sheep-card [sheep]="sheep" (likesChange)="onLikeChanged($event)"/>
+          <app-sheep-card [sheep]="sheep" [(likes)]="likes"/>
         } @empty {
           <mat-card>
             <mat-card-content>
@@ -76,6 +76,13 @@ export class Sheeps {
   dialog = inject(MatDialog);
   searchText = signal('');
   snackBar = inject(MatSnackBar);
+  likes = signal(0);
+
+  constructor() {
+    effect(() => {
+      this.onLikeChanged(this.likes());
+    });
+  }
 
 
   refreshSheep() {
