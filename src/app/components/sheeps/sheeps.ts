@@ -9,8 +9,9 @@ import {MatIcon} from '@angular/material/icon';
 import {MatTooltip} from '@angular/material/tooltip';
 import {MatDialog} from '@angular/material/dialog';
 import {SheepDialog} from '../sheep-dialog/sheep-dialog';
-import {MatError, MatFormField, MatInput, MatLabel} from '@angular/material/input';
+import {MatFormField, MatInput, MatLabel} from '@angular/material/input';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {MatCard, MatCardContent} from '@angular/material/card';
 
 @Component({
   selector: 'app-sheeps',
@@ -22,6 +23,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     MatIcon,
     MatTooltip,
     MatFabButton,
+    MatCard,
+    MatCardContent,
     MatFormField,
     MatInput,
     MatLabel,
@@ -42,9 +45,15 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
     </div>
     <div class="content">
       <div class="sheep-grid">
-        <ng-container *ngFor="let sheep of sheep$ | async">
+        @for(sheep of sheep$|async; track sheep.id){
           <app-sheep-card [sheep]="sheep"/>
-        </ng-container>
+        } @empty {
+          <mat-card>
+            <mat-card-content>
+              No sheep found.
+            </mat-card-content>
+          </mat-card>
+        }
       </div>
     </div>
       <div class="add">
