@@ -1,4 +1,4 @@
-import {Component, computed, effect, inject, signal, viewChildren} from '@angular/core';
+import {Component, computed, effect, inject, linkedSignal, signal, viewChildren} from '@angular/core';
 import {SheepCard} from '../sheep-card/sheep-card';
 import {Observable} from 'rxjs';
 import {Sheep} from '../../models/sheep';
@@ -70,7 +70,7 @@ export class Sheeps {
 
   sheepService = inject<SheepService>(SheepService);
   sheeps = toSignal(this.sheepService.getSheep(), {initialValue:[]});
-  filteredSheeps = computed( () =>
+  filteredSheeps = linkedSignal( () =>
     this.sheeps().filter( s => s.name.toUpperCase().includes(this.searchText().toUpperCase()))
   )
   dialog = inject(MatDialog);
@@ -99,7 +99,7 @@ export class Sheeps {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        //TODO
+        this.filteredSheeps.update( sheeps => [...sheeps, result]);
       }
     });
   }
