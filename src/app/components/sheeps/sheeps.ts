@@ -74,7 +74,7 @@ export class Sheeps {
     this.sheeps.value()?.filter( s => s.name.toUpperCase().includes(this.searchText().toUpperCase()))
   )
   dialog = inject(MatDialog);
-  searchText = signal('');
+  searchText = this.sheepService.searchText;
   snackBar = inject(MatSnackBar);
   likes = signal(0);
 
