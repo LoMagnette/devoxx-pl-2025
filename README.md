@@ -1,4 +1,4 @@
-# SheepInSpace20
+# SheepInSpace 2.0
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.0.
 
